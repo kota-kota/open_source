@@ -6,20 +6,20 @@
 
 以下のツールが必要なので、事前にインストールしておくこと。
 
-__Visual Studio__
+__Visual Studio__  
 nmake,MSBuildコマンドを使用するため。
 
-__ActivePerl__
-コマンドラインからperlコマンドを使用するため。
+__ActivePerl__  
+コマンドプロンプトからperlコマンドを使用するため。
 
-__nasm__
-Intel記法のx86アセンプラ。コマンドラインから使用するため。
+__nasm__  
+インテルx86を対象としたアセンブラ。libjpegのビルドで使用するため。
 
-__CMake__
+__CMake__  
 CMakeListsからVisualStudioのソリューションファイルを生成するため。
 
-__ndk-build__
-AndroidNDKビルドに使用するため。
+__ndk-build__  
+AndroidNDKビルドに使用するため。  
 `${ユーザフォルダ}\AppData\Local\Android\Sdk\ndk-bundle`
 
 ## zlib
