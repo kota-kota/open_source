@@ -57,23 +57,23 @@ Androidのzlibは、NDKに含まれるため不要。
 <http://www.libpng.org/pub/png/libpng.html>  
 Ver. 1.6.37
 
-### 共通
+### libpngビルド（共通）
 
 - <https://sourceforge.net/projects/libpng/files/> からソースをダウンロードする。
 
 - `libpng/`フォルダ配下に展開する。
 
-### Windowsビルド
+### libpngビルド（Windows）
 
 - 事前に、`zlib`をWindowsビルドしておく。
 
 - `projects/vstudio/vstudio.sln`を開き、x64ビルドを有効にする。
 
-    - ソリューションを選択し「プロパティ」→「構成プロパティ」→「構成マネージャー」
+  - ソリューションを選択し「プロパティ」→「構成プロパティ」→「構成マネージャー」
 
-    - アクティブソリューションプラットフォームのプルダウンから「新規作成」
+  - アクティブソリューションプラットフォームのプルダウンから「新規作成」
 
-    - 新しいプラットフォームでx64を選択し「OK」
+  - 新しいプラットフォームでx64を選択し「OK」
 
 - `libpng/`フォルダ配下の`build_libpng_win.bat`を実行する。
     ビルドプラットフォームとビルドターゲットは以下を修正する。
@@ -89,7 +89,7 @@ Ver. 1.6.37
 
 - 生成物が、`libpng/windows`以下に出力される。
 
-### Androidビルド
+### libpngビルド（Android）
 
 - `jni/Android.mk`の`LIBPNG_SRC_PATH`を、展開したフォルダの名前に修正する。
 
@@ -107,6 +107,58 @@ Ver. 1.6.37
     ```
 
 - 生成物が、`libpng/android`以下に出力される。
+
+（補足）`jni/Application.mk`の`APP_ABI`で、ビルドターゲットを変更できる。
+
+```makefile
+APP_ABI := armeabi-v7a arm64-v8a x86 x86_64
+```
+
+## freetype
+
+<https://www.freetype.org/>  
+Ver. 2.9
+
+### freetypeビルド（共通）
+
+- <https://sourceforge.net/projects/freetype/files/freetype2/> からソースをダウンロードする。
+
+- `freetype/`フォルダ配下に展開する。
+
+### freetypeビルド（Windows）
+
+- `freetype/`フォルダ配下の`build_freetype_win.bat`を実行する。
+    ビルドプラットフォームとビルドターゲットは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\freetype-2.9
+    ```
+
+- 生成物が、`freetype/windows`以下に出力される。
+
+### freetypeビルド（Android）
+
+- `jni/Android.mk`の`FREETYPE_SRC_PATH`を、展開したフォルダの名前に修正する。
+
+    ```makefile
+    FREETYPE_SRC_PATH := ../freetype-2.9/
+    ```
+
+- `freetype/`フォルダ配下の`build_freetype_android.bat`を実行する。
+
+    ビルドプラットフォームとビルドターゲットは以下を修正する。
+
+    ```batch
+    rem target
+    set TARGET_PATH=%CUR_PATH%\freetype-2.9
+    ```
+
+- 生成物が、`freetype/android`以下に出力される。
 
 （補足）`jni/Application.mk`の`APP_ABI`で、ビルドターゲットを変更できる。
 

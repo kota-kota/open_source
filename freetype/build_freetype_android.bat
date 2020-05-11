@@ -4,7 +4,7 @@ rem Current
 set CUR_PATH=%~dp0
 
 rem target
-set TARGET_PATH=%CUR_PATH%\lpng1637
+set TARGET_PATH=%CUR_PATH%\freetype-2.9
 
 rem output
 set OUTPUT_PATH=%CUR_PATH%\android
@@ -17,7 +17,7 @@ if not exist %OUTPUT_LIB_PATH% (
 	mkdir %OUTPUT_LIB_PATH%
 )
 
-echo [libpng]ビルド開始
+echo [freetype]ビルド開始
 
 rem build start
 cd jni
@@ -32,13 +32,10 @@ call :copy_lib arm64-v8a
 rem call :copy_lib armeabi-v7a
 rem call :copy_lib x86
 call :copy_lib x86_64
-xcopy /Y %TARGET_PATH%\png.h %OUTPUT_INC_PATH%
-xcopy /Y %TARGET_PATH%\pngconf.h %OUTPUT_INC_PATH%
-xcopy /Y %TARGET_PATH%\pnglibconf.h %OUTPUT_INC_PATH%
-xcopy /Y %TARGET_PATH%\pngstruct.h %OUTPUT_INC_PATH%
+xcopy /Y /S /E %TARGET_PATH%\include\* %OUTPUT_INC_PATH%
 
 
-echo [libpng]ビルド完了
+echo [freetype]ビルド完了
 pause
 exit /b
 
