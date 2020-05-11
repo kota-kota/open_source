@@ -212,6 +212,40 @@ Ver. 2.9.10
 
 - 生成物が、`libxml2/android`以下に出力される。
 
+## libjpeg
+
+<https://libjpeg-turbo.org/>  
+Ver. 1.2.11
+
+### libjpegビルド（Windows）
+
+- <https://sourceforge.net/projects/libjpeg-turbo/files> からソースをダウンロードする。
+
+- `libjpeg/`フォルダ配下に展開する。
+
+- `libjpeg/`フォルダ配下の`build_libjpeg_win.bat`を実行する。
+
+    ビルドプラットフォーム,NASMのパス,ビルドターゲットは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem nasm
+    set NASM_PATH=C:\Users\Kyohei\AppData\Local\bin\NASM
+    set PATH=%PATH%;%NASM_PATH%
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\libjpeg-turbo-1.5.3
+    ```
+
+- 生成物が、`libjpeg/windows`以下に出力される。
+
+### libjpegビルド（Android）
+
+未対応
+
 ## 補足
 
 - [Androidビルド]`jni/Application.mk`の`APP_ABI`で、ビルドターゲットを変更できる。
