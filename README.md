@@ -35,7 +35,7 @@ Ver. 1.2.11
 
 - `zlib/`フォルダ配下の`build_zlib_win.bat`を実行する。
 
-    ビルドプラットフォームとビルドターゲットは以下を修正する。
+    ビルドプラットフォーム,ビルドターゲットは以下を修正する。
 
     ```batch
     rem platform
@@ -76,7 +76,7 @@ Ver. 1.6.37
   - 新しいプラットフォームでx64を選択し「OK」
 
 - `libpng/`フォルダ配下の`build_libpng_win.bat`を実行する。
-    ビルドプラットフォームとビルドターゲットは以下を修正する。
+    ビルドプラットフォーム,ビルドターゲットは以下を修正する。
 
     ```batch
     rem platform
@@ -99,7 +99,7 @@ Ver. 1.6.37
 
 - `libpng/`フォルダ配下の`build_libpng_android.bat`を実行する。
 
-    ビルドプラットフォームとビルドターゲットは以下を修正する。
+    ビルドターゲットは以下を修正する。
 
     ```batch
     rem target
@@ -107,12 +107,6 @@ Ver. 1.6.37
     ```
 
 - 生成物が、`libpng/android`以下に出力される。
-
-（補足）`jni/Application.mk`の`APP_ABI`で、ビルドターゲットを変更できる。
-
-```makefile
-APP_ABI := armeabi-v7a arm64-v8a x86 x86_64
-```
 
 ## freetype
 
@@ -128,7 +122,7 @@ Ver. 2.9
 ### freetypeビルド（Windows）
 
 - `freetype/`フォルダ配下の`build_freetype_win.bat`を実行する。
-    ビルドプラットフォームとビルドターゲットは以下を修正する。
+    ビルドプラットフォーム,ビルドターゲットは以下を修正する。
 
     ```batch
     rem platform
@@ -151,7 +145,7 @@ Ver. 2.9
 
 - `freetype/`フォルダ配下の`build_freetype_android.bat`を実行する。
 
-    ビルドプラットフォームとビルドターゲットは以下を修正する。
+    ビルドターゲットは以下を修正する。
 
     ```batch
     rem target
@@ -160,8 +154,68 @@ Ver. 2.9
 
 - 生成物が、`freetype/android`以下に出力される。
 
-（補足）`jni/Application.mk`の`APP_ABI`で、ビルドターゲットを変更できる。
+## libxml2
 
-```makefile
-APP_ABI := armeabi-v7a arm64-v8a x86 x86_64
-```
+<http://xmlsoft.org/>  
+Ver. 2.9.10
+
+<https://github.com/aosp-mirror/platform_external_libxml2>
+72ac6cf5b8ed69b2c05dcf5ba970b3fcdd4c1c4a
+
+### libxml2ビルド（Windows）
+
+- 事前に、`zlib`をWindowsビルドしておく。
+
+- <http://xmlsoft.org/sources/> からソースをダウンロードする。
+
+- `libxml2/`フォルダ配下に展開する。
+
+- `libxml2/`フォルダ配下の`build_libxml2_win.bat`を実行する。
+    ビルドプラットフォーム,ビルドターゲット,zlibのパスは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\freetype-2.9
+
+    rem zlib
+    set ZLIB_PATH=%CUR_PATH%\..\zlib\zlib-1.2.11
+    ```
+
+- 生成物が、`libxml2/windows`以下に出力される。
+
+### libxml2ビルド（Android）
+
+- <https://github.com/aosp-mirror/platform_external_libxml2> からソースをダウンロードする。
+
+    [Clone or download]->[Download ZIP]を選択する。
+
+- `libxml2/`フォルダ配下に展開する。
+
+- `jni/Android.mk`の`XML_SRC_PATH`を、展開したフォルダの名前に修正する。
+
+    ```makefile
+    XML_SRC_PATH := ../platform_external_libxml2-master/
+    ```
+
+- `libxml2/`フォルダ配下の`build_libxml2_android.bat`を実行する。
+
+    ビルドターゲットは以下を修正する。
+
+    ```batch
+    rem target
+    set TARGET_PATH=%CUR_PATH%\platform_external_libxml2-master
+    ```
+
+- 生成物が、`libxml2/android`以下に出力される。
+
+## 補足
+
+- [Androidビルド]`jni/Application.mk`の`APP_ABI`で、ビルドターゲットを変更できる。
+
+    ```makefile
+    APP_ABI := armeabi-v7a arm64-v8a x86 x86_64
+    ```
