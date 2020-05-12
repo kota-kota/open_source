@@ -11,6 +11,11 @@ nmake,MSBuildコマンドを使用するため。
 
 __ActivePerl__  
 コマンドプロンプトからperlコマンドを使用するため。
+OpenSSLではdmakeが必要のため、事前にインストールしておく。
+
+```bash
+ppm install dmake
+```
 
 __nasm__  
 インテルx86を対象としたアセンブラ。libjpegのビルドで使用するため。
@@ -243,6 +248,40 @@ Ver. 1.2.11
 - 生成物が、`libjpeg/windows`以下に出力される。
 
 ### libjpegビルド（Android）
+
+未対応
+
+## OpenSSL
+
+<https://www.openssl.org/>  
+Ver. 1.1.1g
+
+バージョン1.1.0以降、生成物の名前が変わっている。  
+libeay32 -> libcrypto  
+ssleay32 -> libssl
+
+### OpenSSLビルド（Windows）
+
+- <https://www.openssl.org/> からソースをダウンロードする。
+
+- `openssl/`フォルダ配下に展開する。
+
+- `openssl/`フォルダ配下の`build_openssl_win.bat`を実行する。
+
+    ビルドプラットフォーム,ビルドターゲットは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\openssl-1.1.1g
+    ```
+
+- 生成物が、`openssl/windows`以下に出力される。
+
+### OpenSSLビルド（Android）
 
 未対応
 
