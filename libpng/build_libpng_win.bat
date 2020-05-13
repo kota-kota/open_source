@@ -11,9 +11,9 @@ rem target
 set TARGET_PATH=%CUR_PATH%\lpng1637
 
 rem output
-set OUTPUT_PATH=%CUR_PATH%\windows
+set OUTPUT_PATH=%CUR_PATH%\windows\%PLATFORM%
 set OUTPUT_INC_PATH=%OUTPUT_PATH%\include
-set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib\%PLATFORM%
+set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib
 if not exist %OUTPUT_INC_PATH% (
 	mkdir %OUTPUT_INC_PATH%
 )
@@ -25,7 +25,7 @@ rem Visual Studio
 set MSBUILD="%ProgramFiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe"
 
 
-echo [libpng]ビルド開始
+echo [libpng] Windowsビルド開始
 
 rem build start
 set SLN_DIR=%TARGET_PATH%\projects\vstudio\
@@ -36,17 +36,12 @@ perl -i.bak -p -e "s/>..\\..\\..\\..\\zlib</>..\\..\\..\\..\\..\\zlib\\zlib-1.2.
 
 rem x86
 if %PLATFORM% == x86 (
-echo ---- x86 ----
+	echo ---- x86 ----
 	%MSBUILD% pnglibconf\pnglibconf.vcxproj /t:Rebuild /p:PlatformToolset=v140 /p:SolutionDir=%SLN_DIR%;Configuration="Release";Platform="x86"
 	%MSBUILD% libpng\libpng.vcxproj /t:Rebuild /p:PlatformToolset=v140 /p:SolutionDir=%SLN_DIR%;Configuration="Release Library";Platform="x86"
 
-	rem copy
-	cd %TARGET_PATH%
-	xcopy /Y .\projects\vstudio\"Release Library"\*.lib %OUTPUT_LIB_PATH%
-	xcopy /Y /S /E .\png.h %OUTPUT_INC_PATH%
-	xcopy /Y /S /E .\pngconf.h %OUTPUT_INC_PATH%
-	xcopy /Y /S /E .\pnglibconf.h %OUTPUT_INC_PATH%
-	xcopy /Y /S /E .\pngstruct.h %OUTPUT_INC_PATH%
+	rem copy lib
+	xcopy /Y %TARGET_PATH%\projects\vstudio\"Release Library"\libpng16.lib %OUTPUT_LIB_PATH%
 )
 
 rem x64
@@ -55,18 +50,15 @@ if %PLATFORM% == x64 (
 	%MSBUILD% pnglibconf\pnglibconf.vcxproj /t:Rebuild /p:PlatformToolset=v140 /p:SolutionDir=%SLN_DIR%;Configuration="Release";Platform="x64"
 	%MSBUILD% libpng\libpng.vcxproj /t:Rebuild /p:PlatformToolset=v140 /p:SolutionDir=%SLN_DIR%;Configuration="Release Library";Platform="x64"
 
-	rem copy
-	cd %TARGET_PATH%
-	xcopy /Y .\projects\vstudio\x64\"Release Library"\libpng16.lib %OUTPUT_LIB_PATH%
-	xcopy /Y .\png.h %OUTPUT_INC_PATH%
-	xcopy /Y .\pngconf.h %OUTPUT_INC_PATH%
-	xcopy /Y .\pnglibconf.h %OUTPUT_INC_PATH%
-	xcopy /Y .\pngstruct.h %OUTPUT_INC_PATH%
+	rem copy lib
+	xcopy /Y %TARGET_PATH%\projects\vstudio\x64\"Release Library"\libpng16.lib %OUTPUT_LIB_PATH%
 )
 
-rem go back currenty
-cd %CUR_PATH%
+rem copy inc
+xcopy /Y %TARGET_PATH%\png.h %OUTPUT_INC_PATH%
+xcopy /Y %TARGET_PATH%\pngconf.h %OUTPUT_INC_PATH%
+xcopy /Y %TARGET_PATH%\pnglibconf.h %OUTPUT_INC_PATH%
+xcopy /Y %TARGET_PATH%\pngstruct.h %OUTPUT_INC_PATH%
 
-
-echo [libpng]ビルド完了
+echo [libpng] Windowsビルド完了
 pause

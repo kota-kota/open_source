@@ -11,9 +11,9 @@ rem target
 set TARGET_PATH=%CUR_PATH%\zlib-1.2.11
 
 rem output
-set OUTPUT_PATH=%CUR_PATH%\windows
+set OUTPUT_PATH=%CUR_PATH%\windows\%PLATFORM%
 set OUTPUT_INC_PATH=%OUTPUT_PATH%\include
-set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib\%PLATFORM%
+set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib
 if not exist %OUTPUT_INC_PATH% (
 	mkdir %OUTPUT_INC_PATH%
 )
@@ -27,7 +27,7 @@ set VC_DIR=%VS_DIR%\VC
 set VC_BAT_PATH=%VC_DIR%\vcvarsall.bat
 
 
-echo [zlib]ビルド開始
+echo [zlib] Windowsビルド開始
 
 rem build start
 cd %TARGET_PATH%
@@ -48,14 +48,12 @@ if %PLATFORM% == x64 (
 	nmake -f .\win32\Makefile.msc AS=ml64 LOC="-DASMV -DASMINF -I." OBJA="inffasx64.obj gvmat64.obj inffas8664.obj"
 )
 
-rem go back currenty
-cd %CUR_PATH%
-
 rem copy
-xcopy /Y %TARGET_PATH%\zlib1.dll %OUTPUT_LIB_PATH%
+xcopy /Y %TARGET_PATH%\zlib.lib %OUTPUT_LIB_PATH%
 xcopy /Y %TARGET_PATH%\zdll.lib %OUTPUT_LIB_PATH%
+xcopy /Y %TARGET_PATH%\zlib1.dll %OUTPUT_LIB_PATH%
 xcopy /Y %TARGET_PATH%\zconf.h %OUTPUT_INC_PATH%
 xcopy /Y %TARGET_PATH%\zlib.h %OUTPUT_INC_PATH%
 
-echo [zlib]ビルド完了
+echo [zlib] Windowsビルド完了
 pause

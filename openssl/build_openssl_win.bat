@@ -11,9 +11,9 @@ rem target
 set TARGET_PATH=%CUR_PATH%\openssl-1.1.1g
 
 rem output
-set OUTPUT_PATH=%CUR_PATH%\windows
+set OUTPUT_PATH=%CUR_PATH%\windows\%PLATFORM%
 set OUTPUT_INC_PATH=%OUTPUT_PATH%\include
-set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib\%PLATFORM%
+set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib
 if not exist %OUTPUT_INC_PATH% (
 	mkdir %OUTPUT_INC_PATH%
 )
@@ -39,20 +39,8 @@ if %PLATFORM% == x86 (
 	perl Configure --release no-asm no-shared --prefix=%TARGET_PATH%\x86 VC-WIN32
 	nmake clean
 	nmake
-	nmake test
+	rem nmake test
 	nmake install
-
-	rem copy
-	xcopy /Y .\x86\lib\libeay32.lib %OUTPUT_LIB_PATH%
-	xcopy /Y .\x86\lib\ssleay32.lib %OUTPUT_LIB_PATH%
-	xcopy /Y .\x86\lib\libcrypto.lib %OUTPUT_LIB_PATH%
-	xcopy /Y .\x86\lib\libssl.lib %OUTPUT_LIB_PATH%
-	copy /Y .\x86\lib\libcrypto.lib %OUTPUT_LIB_PATH%\libeay32.lib
-	copy /Y .\x86\lib\libssl.lib %OUTPUT_LIB_PATH%\ssleay32.lib
-	if not exist %OUTPUT_INC_PATH%\x86\openssl (
-		mkdir %OUTPUT_INC_PATH%\x86\openssl
-	)
-	xcopy /Y /S /E .\x86\include\openssl\* %OUTPUT_INC_PATH%\x86\openssl
 )
 
 rem x64
@@ -60,25 +48,21 @@ if %PLATFORM% == x64 (
 	echo ---- x64 ----
 	call "%VC_BAT_PATH%" x86_amd64
 	perl Configure --release no-asm no-shared --prefix=%TARGET_PATH%\x64 VC-WIN64A
+	nmake clean
 	nmake
-	nmake test
+	rem nmake test
 	nmake install
-
-	rem copy
-	xcopy /Y .\x64\lib\libeay32.lib %OUTPUT_LIB_PATH%
-	xcopy /Y .\x64\lib\ssleay32.lib %OUTPUT_LIB_PATH%
-	xcopy /Y .\x64\lib\libcrypto.lib %OUTPUT_LIB_PATH%
-	xcopy /Y .\x64\lib\libssl.lib %OUTPUT_LIB_PATH%
-	copy /Y .\x64\lib\libcrypto.lib %OUTPUT_LIB_PATH%\libeay32.lib
-	copy /Y .\x64\lib\libssl.lib %OUTPUT_LIB_PATH%\ssleay32.lib
-	if not exist %OUTPUT_INC_PATH%\x64\openssl (
-		mkdir %OUTPUT_INC_PATH%\x64\openssl
-	)
-	xcopy /Y /S /E .\x64\include\openssl\* %OUTPUT_INC_PATH%\x64\openssl
 )
 
-rem go back currenty
-cd %CUR_PATH%
+if exist %TARGET_PATH%\%PLATFORM%\lib\libssl.lib (
+	xcopy /Y %TARGET_PATH%\%PLATFORM%\lib\libssl.lib %OUTPUT_LIB_PATH%
+	xcopy /Y %TARGET_PATH%\%PLATFORM%\lib\libcrypto.lib %OUTPUT_LIB_PATH%
+)
+else (
+	xcopy /Y %TARGET_PATH%\%PLATFORM%\lib\ssleay32.lib %OUTPUT_LIB_PATH%
+	xcopy /Y %TARGET_PATH%\%PLATFORM%\lib\libeay32.lib %OUTPUT_LIB_PATH%
+)
+xcopy /Y /S /E %TARGET_PATH%\%PLATFORM%\include\* %OUTPUT_INC_PATH%
 
 echo [openssl]ƒrƒ‹ƒhŠ®—¹
 pause

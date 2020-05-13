@@ -187,7 +187,7 @@ Ver. 2.9.10
     set TARGET_PATH=%CUR_PATH%\freetype-2.9
 
     rem zlib
-    set ZLIB_PATH=%CUR_PATH%\..\zlib\zlib-1.2.11
+    set ZLIB_PATH=%CUR_PATH%\..\zlib\windows\%PLATFORM%
     ```
 
 - 生成物が、`libxml2/windows`以下に出力される。
@@ -282,6 +282,44 @@ ssleay32 -> libssl
 - 生成物が、`openssl/windows`以下に出力される。
 
 ### OpenSSLビルド（Android）
+
+未対応
+
+## curl
+
+<https://curl.haxx.se/>  
+Ver. 7.70.0
+
+### curlビルド（Windows）
+
+- 事前に、`zlib`と`OpenSSL`をWindowsビルドしておく。
+
+- <https://curl.haxx.se/download.html> からソースをダウンロードする。
+
+- `curl/`フォルダ配下に展開する。
+
+- `curl/`フォルダ配下の`build_curl_win.bat`を実行する。
+
+    ビルドプラットフォーム,ビルドターゲット,zlibパス,OpenSSLパスは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\curl-7.70.0
+
+    rem zlib
+    set ZLIB_PATH=%CUR_PATH%\..\zlib\windows\%PLATFORM%
+
+    rem OpenSSL
+    set SSL_PATH=%CUR_PATH%\..\openssl\windows\%PLATFORM%
+    ```
+
+- 生成物が、`curl/windows`以下に出力される。
+
+### curlビルド（Android）
 
 未対応
 

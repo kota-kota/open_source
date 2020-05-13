@@ -15,9 +15,9 @@ rem target
 set TARGET_PATH=%CUR_PATH%\libjpeg-turbo-1.5.3
 
 rem output
-set OUTPUT_PATH=%CUR_PATH%\windows
+set OUTPUT_PATH=%CUR_PATH%\windows\%PLATFORM%
 set OUTPUT_INC_PATH=%OUTPUT_PATH%\include
-set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib\%PLATFORM%
+set OUTPUT_LIB_PATH=%OUTPUT_PATH%\lib
 if not exist %OUTPUT_INC_PATH% (
 	mkdir %OUTPUT_INC_PATH%
 )
@@ -29,7 +29,7 @@ rem Visual Studio
 set MSBUILD="%ProgramFiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe"
 
 
-echo [libjpeg]ビルド開始
+echo [libjpeg] Windowsビルド開始
 
 rem build start
 set BUILD_PATH=%TARGET_PATH%\build
@@ -53,16 +53,11 @@ if %PLATFORM% == x64 (
 	%MSBUILD% ALL_BUILD.vcxproj /t:Rebuild /p:PlatformToolset=v140 /p:SolutionDir=%BUILD_PATH%;Configuration="Release";Platform="x64"
 )
 
-cd %TARGET_PATH%
-xcopy /Y .\build\Release\jpeg-static.lib %OUTPUT_LIB_PATH%
-xcopy /Y .\build\jconfig.h %OUTPUT_INC_PATH%
-xcopy /Y .\jerror.h %OUTPUT_INC_PATH%
-xcopy /Y .\jmorecfg.h %OUTPUT_INC_PATH%
-xcopy /Y .\jpeglib.h %OUTPUT_INC_PATH%
+xcopy /Y %TARGET_PATH%\build\Release\jpeg-static.lib %OUTPUT_LIB_PATH%
+xcopy /Y %TARGET_PATH%\build\jconfig.h %OUTPUT_INC_PATH%
+xcopy /Y %TARGET_PATH%\jerror.h %OUTPUT_INC_PATH%
+xcopy /Y %TARGET_PATH%\jmorecfg.h %OUTPUT_INC_PATH%
+xcopy /Y %TARGET_PATH%\jpeglib.h %OUTPUT_INC_PATH%
 
-rem go back currenty
-cd %CUR_PATH%
-
-
-echo [libjpeg]ビルド完了
+echo [libjpeg] Windowsビルド完了
 pause
