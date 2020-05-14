@@ -251,6 +251,66 @@ Ver. 1.2.11
 
 未対応
 
+## GLFW
+
+<https://www.glfw.org/>
+Ver. 3.3.2
+
+### GLFWビルド（Windows）
+
+- <https://www.glfw.org/> からソースをダウンロードする。
+
+- `glfw/`フォルダ配下に展開する。
+
+- `glfw/`フォルダ配下の`build_glfw_win.bat`を実行する。
+
+    ビルドプラットフォーム,ビルドターゲットは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\glfw-3.3.2
+    ```
+
+- 生成物が、`glfw/windows`以下に出力される。
+
+### GLFWビルド（Android）
+
+Androidでは使用しないため、不要。
+
+## GLEW
+
+<http://glew.sourceforge.net/>
+Ver. 2.1.0
+
+### GLEWビルド（Windows）
+
+- <http://glew.sourceforge.net/> からソースをダウンロードする。
+
+- `glew/`フォルダ配下に展開する。
+
+- `glew/`フォルダ配下の`build_glew_win.bat`を実行する。
+
+    ビルドプラットフォーム,ビルドターゲットは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\glew-2.1.0
+    ```
+
+- 生成物が、`glew/windows`以下に出力される。
+
+### GLEWビルド（Android）
+
+Androidでは使用しないため、不要。
+
 ## OpenSSL
 
 <https://www.openssl.org/>  
