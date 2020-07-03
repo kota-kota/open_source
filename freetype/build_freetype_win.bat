@@ -8,7 +8,7 @@ rem set PLATFORM=x86
 set PLATFORM=x64
 
 rem target
-set TARGET_PATH=%CUR_PATH%\freetype-2.9
+set TARGET_PATH=%CUR_PATH%\freetype-2.10.2
 
 rem output
 set OUTPUT_PATH=%CUR_PATH%\windows\%PLATFORM%

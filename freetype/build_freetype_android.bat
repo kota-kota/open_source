@@ -4,7 +4,7 @@ rem Current
 set CUR_PATH=%~dp0
 
 rem target
-set TARGET_PATH=%CUR_PATH%\freetype-2.9
+set TARGET_PATH=%CUR_PATH%\freetype-2.10.2
 
 rem output
 set OUTPUT_PATH=%CUR_PATH%\android

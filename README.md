@@ -116,7 +116,9 @@ Ver. 1.6.37
 ## freetype
 
 <https://www.freetype.org/>  
-Ver. 2.9
+Ver. 2.10.2
+
+※Ver. 2.9 はリンクが通らなかった
 
 ### freetypeビルド（共通）
 
@@ -135,7 +137,7 @@ Ver. 2.9
     set PLATFORM=x64
 
     rem target
-    set TARGET_PATH=%CUR_PATH%\freetype-2.9
+    set TARGET_PATH=%CUR_PATH%\freetype-2.10.2
     ```
 
 - 生成物が、`freetype/windows`以下に出力される。
@@ -145,7 +147,7 @@ Ver. 2.9
 - `jni/Android.mk`の`FREETYPE_SRC_PATH`を、展開したフォルダの名前に修正する。
 
     ```makefile
-    FREETYPE_SRC_PATH := ../freetype-2.9/
+    FREETYPE_SRC_PATH := ../freetype-2.10.2/
     ```
 
 - `freetype/`フォルダ配下の`build_freetype_android.bat`を実行する。
@@ -154,7 +156,7 @@ Ver. 2.9
 
     ```batch
     rem target
-    set TARGET_PATH=%CUR_PATH%\freetype-2.9
+    set TARGET_PATH=%CUR_PATH%\freetype-2.10.2
     ```
 
 - 生成物が、`freetype/android`以下に出力される。
