@@ -385,6 +385,36 @@ Ver. 7.70.0
 
 未対応
 
+## GoogleTest
+
+<https://github.com/google/googletest>
+Ver. 1.10.0
+
+### GoogleTestビルド（Windows）
+
+- <https://github.com/google/googletest/releases> からソースをダウンロードする。
+
+- `googletest/`フォルダ配下に展開する。
+
+- `googletest/`フォルダ配下の`build_googletest_win.bat`を実行する。
+
+    ビルドプラットフォーム,ビルドターゲットは以下を修正する。
+
+    ```batch
+    rem platform
+    rem set PLATFORM=x86
+    set PLATFORM=x64
+
+    rem target
+    set TARGET_PATH=%CUR_PATH%\googletest-release-1.10.0
+    ```
+
+- 生成物が、`googletest/windows`以下に出力される。
+
+### GoogleTestビルド（Android）
+
+Androidでは使用しないため、不要。
+
 ## 補足
 
 - [Androidビルド]`jni/Application.mk`の`APP_ABI`で、ビルドターゲットを変更できる。
